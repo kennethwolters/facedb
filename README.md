@@ -18,7 +18,7 @@ FaceDB extracts facial embeddings from image collections and enables efficient s
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/facedb.git
+git clone https://github.com/kennethwolters/facedb.git
 cd facedb
 
 # Create a virtual environment
