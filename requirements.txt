@@ -1,0 +1,6 @@
+numpy~=2.2.0
+opencv-python~=4.11.0
+git+https://github.com/deepinsight/insightface.git@4e605d2#subdirectory=python-package
+annoy~=1.17.0
+onnxruntime~=1.21.0
+onnxruntime-gpu~=1.21.0
