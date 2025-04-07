@@ -165,33 +165,27 @@ def main():
     
     metadata_path = args.metadata or os.path.splitext(args.annoy)[0] + '_metadata.json'
     
-    try:
-        annoy_index, metadata = load_resources(args.annoy, metadata_path, args.distance)
-        
-        print(f"Searching for face #{args.face_number} in image: {args.image_path}")
-        target_face = find_face_in_metadata(metadata, args.image_path, args.face_number)
-        print(f"Found target face: {target_face['face_id']}")
-        
-        print(f"Finding the top {args.top} similar faces...")
-        similar_faces = find_similar_faces(annoy_index, metadata, target_face, args.top)
-        
-        print("\nTarget Face:")
-        print(display_face_info(target_face, include_bbox=True))
-        
-        print(f"Top {len(similar_faces) - 1} Similar Faces:")
-        for i, face in enumerate(similar_faces[1:], 1):
-            print(f"Match #{i}:")
-            print(display_face_info(face))
-            print()
-        
-        if args.visualize:
-            visualize_matches(target_face, similar_faces, args.visualize)
-        
-    except Exception as e:
-        print(f"Error: {e}")
-        return 1
+    # Let exceptions propagate naturally
+    annoy_index, metadata = load_resources(args.annoy, metadata_path, args.distance)
     
-    return 0
+    print(f"Searching for face #{args.face_number} in image: {args.image_path}")
+    target_face = find_face_in_metadata(metadata, args.image_path, args.face_number)
+    print(f"Found target face: {target_face['face_id']}")
+    
+    print(f"Finding the top {args.top} similar faces...")
+    similar_faces = find_similar_faces(annoy_index, metadata, target_face, args.top)
+    
+    print("\nTarget Face:")
+    print(display_face_info(target_face, include_bbox=True))
+    
+    print(f"Top {len(similar_faces) - 1} Similar Faces:")
+    for i, face in enumerate(similar_faces[1:], 1):
+        print(f"Match #{i}:")
+        print(display_face_info(face))
+        print()
+    
+    if args.visualize:
+        visualize_matches(target_face, similar_faces, args.visualize)
 
 if __name__ == "__main__":
     main()
